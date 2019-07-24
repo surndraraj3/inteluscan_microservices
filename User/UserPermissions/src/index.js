@@ -1,7 +1,7 @@
 import "dotenv/config";
 import Hapi from "hapi";
 import mongoose from "mongoose";
-import { ValidateUser } from "../src/users/index";
+import { ValidateUser, ForgetPassword } from "../src/users/index";
 
 mongoose
   .connect("mongodb://localhost:27017/user_management", { useNewUrlParser: true })
@@ -32,6 +32,13 @@ server.route({
   path: "/user-permission/validate-user",
   handler: ValidateUser
 });
+
+//Forget password
+server.route({
+  method:'GET',
+  path: '/user-permission/forget-password/{email}',
+  handler:ForgetPassword
+})
 //-----------------------------User Permission Ends---------------------
 
 process.on("unhandledRejection", err => {
